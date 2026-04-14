@@ -1,0 +1,39 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Disease info</title>
+  <desc id="desc">Magazine style health education with short readable blocks and warning panel.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1C2638"/>
+      <stop offset="100%" stop-color="#173525"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0E9FBE"/>
+      <stop offset="100%" stop-color="#6CCB4F"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <text x="70" y="145" font-size="54" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#F3FFF8">Info Page</text>
+  <text x="70" y="198" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#C9E5D8">Short and clear health education</text>
+  <rect x="95" y="295" width="250" height="74" rx="37" fill="#0E9FBE"/>
+  <text x="150" y="343" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#FFFFFF">Diabetes</text>
+  <rect x="365" y="295" width="300" height="74" rx="37" fill="#2B3B55"/>
+  <text x="430" y="343" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#D4E2FF">Hypertension</text>
+  <rect x="685" y="295" width="300" height="74" rx="37" fill="#274A39"/>
+  <text x="780" y="343" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#D6F2E2">Thyroid</text>
+  <rect x="60" y="420" width="960" height="290" rx="26" fill="#27344B"/>
+  <text x="95" y="500" font-size="38" font-family="Avenir, Poppins, sans-serif" fill="#EAF0FF">What is Diabetes?</text>
+  <text x="95" y="555" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#CFDAF4">Blood sugar stays high over time.</text>
+  <text x="95" y="603" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#CFDAF4">It can affect eyes, kidneys, and heart.</text>
+  <text x="95" y="651" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#CFDAF4">Healthy food and medication help control it.</text>
+  <rect x="60" y="740" width="960" height="320" rx="26" fill="#214538"/>
+  <text x="95" y="820" font-size="38" font-family="Avenir, Poppins, sans-serif" fill="#EAFFF2">Metformin (Brief)</text>
+  <text x="95" y="875" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#C7EBD6">Use: lowers blood sugar in Type 2 diabetes.</text>
+  <text x="95" y="923" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#C7EBD6">Common effects: nausea, stomach upset.</text>
+  <text x="95" y="971" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#C7EBD6">Avoid with severe kidney disease (ask doctor).</text>
+  <rect x="60" y="1090" width="960" height="220" rx="26" fill="#4E3A1F"/>
+  <text x="95" y="1160" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#FFE3B2">Contraindication Alert</text>
+  <text x="95" y="1215" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#F5D8A5">Warfarin interactions need clinician review.</text>
+  <text x="95" y="1260" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#F5D8A5">Always confirm with your provider.</text>
+  <rect x="95" y="1490" width="890" height="112" rx="56" fill="url(#brand)"/>
+  <text x="390" y="1562" font-size="40" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#FFFFFF">Read in Hindi</text>
+</svg>

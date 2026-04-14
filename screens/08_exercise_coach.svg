@@ -1,0 +1,36 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Exercise coach</title>
+  <desc id="desc">Sporty dark interface with radial energy glow and segmented levels.</desc>
+  <defs>
+    <radialGradient id="bg" cx="70%" cy="20%" r="90%">
+      <stop offset="0%" stop-color="#1C5A48"/>
+      <stop offset="100%" stop-color="#0E1E2A"/>
+    </radialGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0E9FBE"/>
+      <stop offset="100%" stop-color="#6CCB4F"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <text x="70" y="145" font-size="54" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#F1FFF8">Exercise Coach</text>
+  <text x="70" y="198" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#C9E7DB">Safe movement for seniors</text>
+  <rect x="95" y="290" width="420" height="88" rx="44" fill="#0E9FBE"/>
+  <text x="185" y="347" font-size="34" font-family="Avenir, Poppins, sans-serif" fill="#FFFFFF">Beginner</text>
+  <rect x="560" y="290" width="420" height="88" rx="44" fill="#1F3E4D"/>
+  <text x="640" y="347" font-size="34" font-family="Avenir, Poppins, sans-serif" fill="#D9ECF4">Intermediate</text>
+  <rect x="60" y="430" width="960" height="360" rx="28" fill="#152B37"/>
+  <circle cx="870" cy="605" r="92" fill="#0E9FBE" opacity="0.24"/>
+  <text x="95" y="510" font-size="42" font-family="Avenir, Poppins, sans-serif" fill="#ECF8FF">15-Min Walk</text>
+  <text x="95" y="570" font-size="32" font-family="Avenir, Poppins, sans-serif" fill="#BBD6E2">Goal: 1200 steps</text>
+  <text x="95" y="620" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#A8C8D7">English, Hindi, Gujarati audio</text>
+  <rect x="95" y="670" width="230" height="66" rx="33" fill="url(#brand)"/>
+  <text x="160" y="713" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#FFFFFF">Start</text>
+  <rect x="60" y="830" width="960" height="210" rx="24" fill="#1C3F34"/>
+  <text x="95" y="900" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#EAFFF1">Chair Stretch</text>
+  <text x="95" y="952" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#BFE8CF">10 mins - Low impact</text>
+  <rect x="60" y="1070" width="960" height="210" rx="24" fill="#2A314C"/>
+  <text x="95" y="1140" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#EEF0FF">Breathing Routine</text>
+  <text x="95" y="1192" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#C7CCED">5 mins - Stress support</text>
+  <rect x="95" y="1490" width="890" height="112" rx="56" fill="url(#brand)"/>
+  <text x="345" y="1562" font-size="40" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#FFFFFF">Set Daily Reminder</text>
+</svg>

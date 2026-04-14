@@ -1,0 +1,33 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Health logs</title>
+  <desc id="desc">Analytics style dashboard with dark slate background and metric blocks.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111822"/>
+      <stop offset="100%" stop-color="#1B2D3D"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0E9FBE"/>
+      <stop offset="100%" stop-color="#6CCB4F"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <text x="70" y="145" font-size="54" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#EEF6FF">Health Logs</text>
+  <text x="70" y="198" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#BFD0E0">Track 3 key conditions daily</text>
+  <rect x="60" y="300" width="960" height="260" rx="24" fill="#1C3346"/>
+  <text x="95" y="378" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#E2EEFA">Blood Pressure</text>
+  <text x="95" y="442" font-size="58" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#0E9FBE">128/82</text>
+  <text x="95" y="492" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#A6BED2">Last 7 days: stable</text>
+  <rect x="60" y="590" width="960" height="260" rx="24" fill="#1B3C31"/>
+  <text x="95" y="668" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#E8FFF2">Blood Glucose</text>
+  <text x="95" y="732" font-size="58" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#6CCB4F">121 mg/dL</text>
+  <text x="95" y="782" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#B8DEC8">Fasting: in target range</text>
+  <rect x="60" y="880" width="960" height="260" rx="24" fill="#2A3250"/>
+  <text x="95" y="958" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#EEF0FF">Cholesterol</text>
+  <text x="95" y="1022" font-size="58" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#9ED4FF">LDL 95</text>
+  <text x="95" y="1072" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#C8D0EC">Monthly update</text>
+  <rect x="95" y="1490" width="430" height="112" rx="56" fill="#233D53"/>
+  <text x="165" y="1562" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#EAF6FF">Add Record</text>
+  <rect x="555" y="1490" width="430" height="112" rx="56" fill="url(#brand)"/>
+  <text x="645" y="1562" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#FFFFFF">Share</text>
+</svg>

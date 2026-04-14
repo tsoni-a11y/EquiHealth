@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "EquiHealth",
+    "slug": "equihealth-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.equihealth.mobile"
+    },
+    "plugins": ["expo-notifications"]
+  }
+}

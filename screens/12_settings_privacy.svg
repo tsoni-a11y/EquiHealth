@@ -1,0 +1,39 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Settings and privacy</title>
+  <desc id="desc">Compliance-focused dark settings page with legal and consent sections.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14171F"/>
+      <stop offset="100%" stop-color="#222931"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0E9FBE"/>
+      <stop offset="100%" stop-color="#6CCB4F"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <text x="70" y="145" font-size="54" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#F8FAFC">Settings &amp; Privacy</text>
+  <text x="70" y="198" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#CCD3DC">Control data sharing and legal preferences</text>
+  <rect x="60" y="300" width="960" height="95" rx="20" fill="#2A323D"/>
+  <text x="95" y="360" font-size="33" font-family="Avenir, Poppins, sans-serif" fill="#EDF2F8">Notifications</text>
+  <rect x="910" y="322" width="80" height="50" rx="25" fill="#6CCB4F"/>
+  <rect x="60" y="415" width="960" height="95" rx="20" fill="#2A323D"/>
+  <text x="95" y="475" font-size="33" font-family="Avenir, Poppins, sans-serif" fill="#EDF2F8">Data export to doctor</text>
+  <rect x="910" y="437" width="80" height="50" rx="25" fill="#0E9FBE"/>
+  <rect x="60" y="530" width="960" height="95" rx="20" fill="#2A323D"/>
+  <text x="95" y="590" font-size="33" font-family="Avenir, Poppins, sans-serif" fill="#EDF2F8">Research consent (optional)</text>
+  <rect x="910" y="552" width="80" height="50" rx="25" fill="#7D8895"/>
+  <text x="70" y="720" font-size="34" font-family="Avenir, Poppins, sans-serif" fill="#D8DFE8">Legal</text>
+  <rect x="60" y="750" width="960" height="92" rx="20" fill="#313A45"/>
+  <text x="95" y="810" font-size="32" font-family="Avenir, Poppins, sans-serif" fill="#EDF2F8">Privacy Policy</text>
+  <rect x="60" y="860" width="960" height="92" rx="20" fill="#313A45"/>
+  <text x="95" y="920" font-size="32" font-family="Avenir, Poppins, sans-serif" fill="#EDF2F8">Terms and Conditions</text>
+  <rect x="60" y="970" width="960" height="92" rx="20" fill="#313A45"/>
+  <text x="95" y="1030" font-size="32" font-family="Avenir, Poppins, sans-serif" fill="#EDF2F8">Ethical Use and AI Disclaimer</text>
+  <rect x="60" y="1100" width="960" height="200" rx="26" fill="#4A3A2A"/>
+  <text x="95" y="1170" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#FFE2B8">Important</text>
+  <text x="95" y="1220" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#F6D7A8">This app supports care, not diagnosis.</text>
+  <text x="95" y="1265" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#F6D7A8">Always follow clinician instructions.</text>
+  <rect x="95" y="1490" width="890" height="112" rx="56" fill="url(#brand)"/>
+  <text x="430" y="1562" font-size="40" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#FFFFFF">Done</text>
+</svg>

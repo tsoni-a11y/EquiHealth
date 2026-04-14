@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EquiHealth+ UI Gallery</title>
+  <style>
+    :root {
+      --teal: #0e9fbe;
+      --green: #6ccb4f;
+      --ink: #123140;
+      --paper: #f3fbf8;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Poppins", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 20% 0%, #e8f8ff 0%, var(--paper) 45%, #edfbe7 100%);
+    }
+    header {
+      padding: 28px 20px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      background: linear-gradient(90deg, var(--teal), var(--green));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+    p {
+      margin: 10px auto 0;
+      max-width: 760px;
+      font-size: 1rem;
+    }
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+      padding: 12px 20px 28px;
+    }
+    figure {
+      margin: 0;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 8px 24px rgba(12, 79, 96, 0.12);
+    }
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+    }
+    figcaption {
+      margin: 10px 4px 4px;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EquiHealth+ Mobile App UI</h1>
+    <p>Accessible, multilingual, senior-friendly screens using your teal-green brand direction.</p>
+  </header>
+  <main>
+    <figure><img src="screens/01_splash_onboarding.svg" alt="Splash and onboarding" /><figcaption>01 Splash</figcaption></figure>
+    <figure><img src="screens/02_auth_signup.svg" alt="Sign up" /><figcaption>02 Sign Up</figcaption></figure>
+    <figure><img src="screens/03_profile_accessibility.svg" alt="Accessibility setup" /><figcaption>03 Accessibility</figcaption></figure>
+    <figure><img src="screens/04_home_dashboard.svg" alt="Home dashboard" /><figcaption>04 Dashboard</figcaption></figure>
+    <figure><img src="screens/05_conditions_medications.svg" alt="Conditions and medications" /><figcaption>05 Conditions</figcaption></figure>
+    <figure><img src="screens/06_medical_alerts.svg" alt="Medical alerts" /><figcaption>06 Alerts</figcaption></figure>
+    <figure><img src="screens/07_diet_plans.svg" alt="Diet plans" /><figcaption>07 Diet</figcaption></figure>
+    <figure><img src="screens/08_exercise_coach.svg" alt="Exercise coach" /><figcaption>08 Exercise</figcaption></figure>
+    <figure><img src="screens/09_disease_info.svg" alt="Disease and medication info" /><figcaption>09 Info</figcaption></figure>
+    <figure><img src="screens/10_logs_and_tracking.svg" alt="Health logs" /><figcaption>10 Logs</figcaption></figure>
+    <figure><img src="screens/11_family_caregiver.svg" alt="Family caregiver access" /><figcaption>11 Caregiver</figcaption></figure>
+    <figure><img src="screens/12_settings_privacy.svg" alt="Settings and privacy" /><figcaption>12 Privacy</figcaption></figure>
+  </main>
+</body>
+</html>

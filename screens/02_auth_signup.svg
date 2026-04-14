@@ -1,0 +1,46 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Sign up screen</title>
+  <desc id="desc">Two-tone dark signup design with high-contrast large form fields.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#082334"/>
+      <stop offset="55%" stop-color="#0E3A4A"/>
+      <stop offset="100%" stop-color="#1A4B35"/>
+    </linearGradient>
+    <linearGradient id="cta" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0E9FBE"/>
+      <stop offset="100%" stop-color="#6CCB4F"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1080" height="1920" x="0" y="0" fill="url(#bg)"/>
+
+  <rect x="70" y="170" width="940" height="1580" rx="42" fill="#0B2230" opacity="0.9"/>
+  <text x="115" y="280" font-size="58" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#FFFFFF">Create Account</text>
+  <text x="115" y="340" font-size="32" font-family="Avenir, Poppins, sans-serif" fill="#B8D5DE">Age 30+ and family caregivers</text>
+
+  <text x="115" y="430" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#D4E7ED">Email or Phone</text>
+  <rect x="110" y="460" width="860" height="94" rx="18" fill="#163D50"/>
+  <text x="145" y="520" font-size="34" font-family="Avenir, Poppins, sans-serif" fill="#9FC3CF">name@example.com</text>
+
+  <text x="115" y="625" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#D4E7ED">Full Name</text>
+  <rect x="110" y="655" width="860" height="94" rx="18" fill="#163D50"/>
+  <text x="145" y="715" font-size="34" font-family="Avenir, Poppins, sans-serif" fill="#9FC3CF">Enter your name</text>
+
+  <text x="115" y="820" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#D4E7ED">Age and Gender</text>
+  <rect x="110" y="850" width="410" height="94" rx="18" fill="#163D50"/>
+  <text x="150" y="910" font-size="34" font-family="Avenir, Poppins, sans-serif" fill="#E8F2F5">30-45</text>
+  <rect x="560" y="850" width="410" height="94" rx="18" fill="#163D50"/>
+  <text x="600" y="910" font-size="34" font-family="Avenir, Poppins, sans-serif" fill="#E8F2F5">Gender</text>
+
+  <text x="115" y="1015" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#D4E7ED">Language</text>
+  <rect x="110" y="1045" width="860" height="94" rx="18" fill="#163D50"/>
+  <text x="145" y="1105" font-size="34" font-family="Avenir, Poppins, sans-serif" fill="#E8F2F5">English (can change later)</text>
+
+  <text x="115" y="1210" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#D4E7ED">Password</text>
+  <rect x="110" y="1240" width="860" height="94" rx="18" fill="#163D50"/>
+  <text x="145" y="1300" font-size="38" font-family="Avenir, Poppins, sans-serif" fill="#9FC3CF">**********</text>
+
+  <rect x="110" y="1405" width="860" height="108" rx="54" fill="url(#cta)"/>
+  <text x="455" y="1474" font-size="42" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#FFFFFF">Continue</text>
+</svg>

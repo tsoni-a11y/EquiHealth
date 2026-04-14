@@ -1,0 +1,40 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Medical alerts</title>
+  <desc id="desc">Timeline style reminder screen with dark red-navy tone for urgency and clarity.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#281A2B"/>
+      <stop offset="100%" stop-color="#1C223D"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0E9FBE"/>
+      <stop offset="100%" stop-color="#6CCB4F"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <text x="70" y="145" font-size="54" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#F8F2FF">Medical Alerts</text>
+  <text x="70" y="198" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#D9CFEA">Medication - Appointments - Exercise</text>
+
+  <line x1="140" y1="320" x2="140" y2="1320" stroke="#6A5B8F" stroke-width="8"/>
+
+  <circle cx="140" cy="390" r="18" fill="#0E9FBE"/>
+  <rect x="185" y="325" width="800" height="180" rx="24" fill="#322746"/>
+  <text x="220" y="390" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#F7F2FF">Lisinopril 10mg</text>
+  <text x="220" y="445" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#DCCFF0">Daily at 8:00 AM</text>
+
+  <circle cx="140" cy="620" r="18" fill="#6CCB4F"/>
+  <rect x="185" y="555" width="800" height="180" rx="24" fill="#23374A"/>
+  <text x="220" y="620" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#ECF8FF">Doctor Appointment</text>
+  <text x="220" y="675" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#C1DCEA">Apr 2, 10:30 AM</text>
+
+  <circle cx="140" cy="850" r="18" fill="#0E9FBE"/>
+  <rect x="185" y="785" width="800" height="180" rx="24" fill="#214038"/>
+  <text x="220" y="850" font-size="36" font-family="Avenir, Poppins, sans-serif" fill="#E8FFF4">Walk Reminder</text>
+  <text x="220" y="905" font-size="30" font-family="Avenir, Poppins, sans-serif" fill="#BFEBD4">15 minutes at 6:00 PM</text>
+
+  <rect x="95" y="1110" width="890" height="96" rx="20" fill="#3A2F53"/>
+  <text x="130" y="1172" font-size="34" font-family="Avenir, Poppins, sans-serif" fill="#EEE6FF">+ Add Custom Reminder</text>
+
+  <rect x="95" y="1490" width="890" height="112" rx="56" fill="url(#brand)"/>
+  <text x="360" y="1562" font-size="40" font-family="Avenir, Poppins, sans-serif" font-weight="700" fill="#FFFFFF">Save Schedule</text>
+</svg>

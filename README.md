@@ -1,82 +1,120 @@
-# EquiHealth Mobile App
+# EquiHealth - Accessible Health Management App
 
-This repository now includes an Expo React Native app that can run on iOS in development mode.
+A React Native Expo app for managing health conditions, medications, and wellness tracking with multi-language support and accessibility features.
 
-## Implemented Features
+## 🚀 Quick Start
 
-1. Language-first startup screen with English and Hindi selection.
-2. All app labels and major content switch based on selected language.
-3. Conditions and medications flow with illness-based auto-population.
-4. Diet plans auto-populate based on selected illness.
-5. Medication reminder scheduling with local notifications.
-6. Logs and tracking buttons redirect to one complete "All Logs" screen.
-7. Family access and exercise flows are removed from app navigation.
-8. Hypertension disease content is preloaded from your provided information, with exercise references removed.
-9. Signup + profile/accessibility setup are persistent across launches.
-10. Reminder time is selected using a native time picker.
+### Prerequisites
+- Node.js 16+ installed ([Download](https://nodejs.org/))
+- iOS Simulator or Android Emulator (or physical device)
 
-## iOS Dev Mode Run Steps
+### Setup & Run
 
-1. Install dependencies:
-
+**Option 1: Automated Setup (Recommended)**
 ```bash
+chmod +x setup.sh
+./setup.sh
+expo start --localhost
+```
+Then press `i` for iOS or `a` for Android.
+
+**Option 2: Manual Setup**
+```bash
+npm install
+npm install -g expo-cli
+expo start --localhost
+Press i
+```
+
+## 📋 Project Structure
+
+```
+├── App.js                 # Main app entry point
+├── src/
+│   ├── screens/          # App screens
+│   ├── context/          # Global state (AppContext)
+│   ├── i18n/             # Translations (EN, ES, FR, PT)
+│   ├── services/         # Voice & auth services
+│   ├── data/             # Static data (illness, medications)
+│   └── theme.js          # Design system & scaling
+├── setup.sh              # Automated setup script
+└── package.json          # Dependencies
+```
+
+## ✨ Features
+
+- 🌐 **Multi-language**: English, Spanish, French, Portuguese
+- 🔊 **Accessibility**: Voice input/output support
+- 💊 **Health Tracking**: Medications, meals, medical alerts
+- 📊 **Disease Management**: Condition-specific information
+- 📱 **Responsive Design**: Works on all device sizes
+- 🎨 **Dark Theme**: Eye-friendly interface
+
+## 🛠️ Tech Stack
+
+- **React Native** - Cross-platform mobile
+- **Expo** - Development & deployment
+- **React Navigation** - Screen navigation
+- **AsyncStorage** - Local data persistence
+- **Expo Vector Icons** - UI icons
+
+## 📱 Screens
+
+- **Language Selection** - Choose preferred language
+- **Authentication** - Login/signup
+- **Profile Setup** - User information
+- **Home** - Dashboard with reminders
+- **Conditions** - Manage health conditions & medications
+- **Diet Plans** - Track meals
+- **Medical Alerts** - Set reminders
+- **Settings** - App preferences
+
+## 🔧 Troubleshooting
+
+### App not loading?
+```bash
+expo start --clear
+Press r
+```
+
+### Cache issues?
+```bash
+npm cache clean --force
+rm -rf node_modules
 npm install
 ```
 
-2. Start Expo:
-
+### Port already in use?
 ```bash
-npm start
+expo start --localhost --tunnel
 ```
 
-3. On your iPhone, install **Expo Go** from the App Store.
-4. Scan the QR code from the terminal/browser.
-5. Allow notification permission in the app to receive medication reminders.
+## 📝 Development
 
-## Xcode + Connected iPhone Dev Mode
+### Add new screen:
+1. Create file in `src/screens/`
+2. Import in `App.js`
+3. Add to navigation stack
 
-1. Generate native iOS project files:
+### Add translations:
+Edit `src/i18n/translations.js` and add keys
 
-```bash
-npm run prebuild:ios
-```
+### Update theme:
+Edit `src/theme.js` for colors and scaling
 
-2. Install CocoaPods (if needed) and sync pods:
+## 🤝 Contributing
 
-```bash
-cd ios && pod install && cd ..
-```
+1. Clone the repo
+2. Run `./setup.sh`
+3. Create a branch
+4. Make changes
+5. Test on simulator
+6. Push & create PR
 
-3. Open workspace in Xcode:
+## 📄 License
 
-```bash
-open ios/EquiHealth.xcworkspace
-```
+MIT License - See LICENSE file
 
-4. In Xcode:
-- Select your connected iPhone as run target.
-- Set a valid `Team` under **Signing & Capabilities** for the app target.
-- Use a unique bundle id if Xcode asks.
+## 💡 Support
 
-5. Start Metro in terminal:
-
-```bash
-npm start
-```
-
-6. Press Run in Xcode to install and launch on your device.
-
-Alternative one-command device run:
-
-```bash
-npm run run:ios:device
-```
-
-## Project Structure
-
-- `App.js`: Navigation and app entry.
-- `src/context/AppContext.js`: Global state, persistence, logs, and notification reminder logic.
-- `src/data/illnessData.js`: Illness-specific medications, diet, and disease info.
-- `src/i18n/translations.js`: English and Hindi text resources.
-- `src/screens/*.js`: App screens.
-- `screens/*.svg`: Original design mockups.
+Having issues? Check the [troubleshooting section](#-troubleshooting) or open an issue on GitHub.

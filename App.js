@@ -67,7 +67,7 @@ function MainTabs() {
         component={ConditionsScreen}
         options={{
           title: t(language, 'tabConditions'),
-          tabBarIcon: ({ color, size }) => <Ionicons name="medkit" color={color} size={size} />
+          tabBarIcon: ({ color, size }) => <Ionicons name="pulse" color={color} size={size} />
         }}
       />
       <Tab.Screen
@@ -75,7 +75,7 @@ function MainTabs() {
         component={DietPlansScreen}
         options={{
           title: t(language, 'tabDiet'),
-          tabBarIcon: ({ color, size }) => <Ionicons name="restaurant" color={color} size={size} />
+          tabBarIcon: ({ color, size }) => <Ionicons name="nutrition" color={color} size={size} />
         }}
       />
       <Tab.Screen

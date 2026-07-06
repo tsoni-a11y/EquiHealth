@@ -2,7 +2,11 @@ import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
 import * as FileSystem from 'expo-file-system';
 import { Audio } from 'expo-av';
 
-const apiKey = process.env.ELEVENLABS_API_KEY || 'sk_0cf772b9dc495a2ccd6f2dd8ae75192e03f47fbcf7820351';
+const apiKey = process.env.ELEVENLABS_API_KEY;
+
+if (!apiKey) {
+  console.warn('Warning: ELEVENLABS_API_KEY is not set in environment variables');
+}
 
 const client = new ElevenLabsClient({
   apiKey: apiKey,
@@ -13,6 +17,10 @@ let sound = null;
 // Text to Speech function
 export const textToSpeech = async (text, voiceId = 'EXAVITQu4vr4xnSDxMaL') => {
   try {
+    if (!apiKey) {
+      throw new Error('ElevenLabs API key is not configured');
+    }
+
     const audio = await client.generate({
       text: text,
       voice: voiceId,
@@ -46,6 +54,10 @@ export const playAudioURL = async (audioUrl) => {
 // Speech to Text function - Convert audio file to text using ElevenLabs
 export const speechToText = async (audioFilePath) => {
   try {
+    if (!apiKey) {
+      throw new Error('ElevenLabs API key is not configured');
+    }
+
     // Read audio file as base64
     const audioBase64 = await FileSystem.readAsStringAsync(audioFilePath, {
       encoding: FileSystem.EncodingType.Base64,
@@ -80,6 +92,10 @@ const base64ToBlob = (base64, mimeType) => {
 // Get available voices
 export const getAvailableVoices = async () => {
   try {
+    if (!apiKey) {
+      throw new Error('ElevenLabs API key is not configured');
+    }
+
     const voices = await client.voices.getAll();
     return voices;
   } catch (error) {

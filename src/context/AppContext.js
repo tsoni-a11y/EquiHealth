@@ -9,10 +9,35 @@ export const AppProvider = ({ children }) => {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // DEV ONLY: Clear all user data from AsyncStorage on app startup
+  // Remove this before production release
+  const devLogout = async () => {
+    if (__DEV__) {
+      try {
+        await AsyncStorage.removeItem('user');
+        await AsyncStorage.removeItem('language');
+        await AsyncStorage.removeItem('illnesses');
+        await AsyncStorage.removeItem('profileComplete');
+        setUser(null);
+        setUserProfile(null);
+        setLanguage('en');
+        console.log('[DEV] Cleared all user data from AsyncStorage');
+      } catch (error) {
+        console.error('[DEV] Error clearing user data:', error);
+      }
+    }
+  };
+
   // Load language preference on app start
   useEffect(() => {
     const loadLanguage = async () => {
       try {
+        // DEV ONLY: Reset all state on startup for clean testing
+        if (__DEV__) {
+          await devLogout();
+          setLoading(false);
+          return;
+        }
         const savedLanguage = await AsyncStorage.getItem('language');
         if (savedLanguage) {
           setLanguage(savedLanguage);
@@ -62,6 +87,7 @@ export const AppProvider = ({ children }) => {
     userProfile,
     updateUserProfile,
     logout,
+    devLogout,
     loading,
   };
 

@@ -13,7 +13,7 @@ import ProfileSetupScreen from './src/screens/ProfileSetupScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import ConditionsScreen from './src/screens/ConditionsScreen';
 import MedicalAlertsScreen from './src/screens/MedicalAlertsScreen';
-import DietPlansScreen from './src/screens/DietPlansScreen';
+// import DietPlansScreen from './src/screens/DietPlansScreen'; // TODO: Fix VoiceButton import
 import DiseaseInfoScreen from './src/screens/DiseaseInfoScreen';
 import AllLogsScreen from './src/screens/AllLogsScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
@@ -71,6 +71,7 @@ function MainTabs() {
           tabBarIcon: ({ color, size }) => <Ionicons name="pulse" color={color} size={size} />
         }}
       />
+      {/* TEMPORARILY DISABLED during OTP testing
       <Tab.Screen
         name="DietPlans"
         component={DietPlansScreen}
@@ -79,6 +80,7 @@ function MainTabs() {
           tabBarIcon: ({ color, size }) => <Ionicons name="nutrition" color={color} size={size} />
         }}
       />
+      */}
       <Tab.Screen
         name="MedicalAlerts"
         component={MedicalAlertsScreen}

@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppProvider } from './src/context/AppContext';
 import LanguageScreen from './src/screens/LanguageScreen';
 import AuthScreen from './src/screens/AuthScreen';
+import OtpVerificationScreen from './src/screens/OtpVerificationScreen';
 import ProfileSetupScreen from './src/screens/ProfileSetupScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import ConditionsScreen from './src/screens/ConditionsScreen';
@@ -114,6 +115,7 @@ export default function App() {
           >
             <Stack.Screen name="Language" component={LanguageScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Auth" component={AuthScreen} />
+            <Stack.Screen name="OtpVerification" component={OtpVerificationScreen} />
             <Stack.Screen name="ProfileSetup" component={ProfileSetupScreen} />
             <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} />
             <Stack.Screen name="DiseaseInfo" component={DiseaseInfoScreen} />

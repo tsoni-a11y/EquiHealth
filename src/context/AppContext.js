@@ -7,6 +7,8 @@ export const AppProvider = ({ children }) => {
   const [language, setLanguage] = useState('en');
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
+  const [generatedOtp, setGeneratedOtp] = useState(null);
+  const [otpExpiry, setOtpExpiry] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // Load language preference on app start
@@ -40,6 +42,62 @@ export const AppProvider = ({ children }) => {
     setUser(newUser);
   };
 
+  const saveUserAuth = async (authUser) => {
+    setUser(authUser);
+    await AsyncStorage.setItem('user', JSON.stringify(authUser));
+  };
+
+  const clearOtp = () => {
+    setGeneratedOtp(null);
+    setOtpExpiry(null);
+  };
+
+  const getRandomUint32 = () => {
+    const randomSource = new Uint32Array(1);
+    if (globalThis.crypto?.getRandomValues) {
+      globalThis.crypto.getRandomValues(randomSource);
+    } else {
+      randomSource[0] = Math.floor(Math.random() * 2 ** 32);
+    }
+    return randomSource[0];
+  };
+
+  const sendOtp = (phone) => {
+    const otpRange = 900000;
+    const maxUnbiasedValue = Math.floor(2 ** 32 / otpRange) * otpRange - 1;
+
+    let randomValue = getRandomUint32();
+    while (randomValue > maxUnbiasedValue) {
+      randomValue = getRandomUint32();
+    }
+
+    const otp = String(100000 + (randomValue % otpRange));
+    const expiry = Date.now() + 5 * 60 * 1000;
+
+    setGeneratedOtp(otp);
+    setOtpExpiry(expiry);
+
+    console.log(`[Demo OTP] ${phone}: ${otp}`);
+  };
+
+  const verifyOtp = (inputOtp) => {
+    if (!generatedOtp || !otpExpiry) {
+      return { success: false, reason: 'missing' };
+    }
+
+    if (Date.now() >= otpExpiry) {
+      clearOtp();
+      return { success: false, reason: 'expired' };
+    }
+
+    if (inputOtp !== generatedOtp) {
+      return { success: false, reason: 'invalid' };
+    }
+
+    clearOtp();
+    return { success: true };
+  };
+
   const updateUserProfile = (newProfile) => {
     setUserProfile(newProfile);
   };
@@ -59,8 +117,13 @@ export const AppProvider = ({ children }) => {
     updateLanguage,
     user,
     updateUser,
+    saveUserAuth,
     userProfile,
     updateUserProfile,
+    generatedOtp,
+    otpExpiry,
+    sendOtp,
+    verifyOtp,
     logout,
     loading,
   };

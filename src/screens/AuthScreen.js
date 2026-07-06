@@ -7,7 +7,7 @@ import { t } from '../i18n/translations';
 import { gradients, scale } from '../theme';
 
 export default function AuthScreen({ navigation }) {
-  const { language, saveUserAuth } = useApp();
+  const { language, sendOtp } = useApp();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -15,17 +15,17 @@ export default function AuthScreen({ navigation }) {
     navigation.setOptions({ title: t(language, 'authTitle') });
   }, [navigation, language]);
 
-  const onContinue = async () => {
+  const onSendCode = () => {
     if (!name.trim() || !phone.trim()) {
       Alert.alert(t(language, 'authError'));
       return;
     }
 
-    await saveUserAuth({
+    sendOtp(phone.trim());
+    navigation.navigate('OtpVerification', {
       name: name.trim(),
       phone: phone.trim()
     });
-    navigation.replace('ProfileSetup');
   };
 
   return (
@@ -48,8 +48,14 @@ export default function AuthScreen({ navigation }) {
           keyboardType="phone-pad"
         />
 
-        <Pressable style={styles.cta} onPress={onContinue}>
-          <Text style={styles.ctaText}>{t(language, 'continue')}</Text>
+        <Pressable
+          style={styles.cta}
+          onPress={onSendCode}
+          accessibilityRole="button"
+          accessibilityLabel={t(language, 'sendCode')}
+          accessibilityHint={t(language, 'sendCodeHint')}
+        >
+          <Text style={styles.ctaText}>{t(language, 'sendCode')}</Text>
         </Pressable>
       </ScrollView>
       </SafeAreaView>

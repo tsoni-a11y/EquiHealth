@@ -1,25 +1,41 @@
 import React, { useLayoutEffect } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useApp } from '../context/AppContext';
 import { illnessData } from '../data/illnessData';
 import { t } from '../i18n/translations';
-import { gradients, palette, scale, scaledFont } from '../theme';
+import { colors, fonts, radius, scale, spacing, type } from '../theme';
+import { Card, CheckRow, Screen, SectionTitle } from '../components/ui';
 
-function ChecklistRow({ checked, label, onPress }) {
+function QuickAction({ icon, label, tint, bg, onPress }) {
   return (
-    <Pressable style={styles.checkRow} onPress={onPress}>
-      <Ionicons name={checked ? 'checkmark-circle' : 'ellipse-outline'} size={scale(20)} color={checked ? '#6CCB4F' : '#A7C1CC'} />
-      <Text style={styles.checkLabel}>{label}</Text>
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      style={({ pressed }) => [styles.quickCard, pressed && { opacity: 0.7 }]}
+    >
+      <View style={[styles.quickIcon, { backgroundColor: bg }]}>
+        <Ionicons name={icon} size={scale(22)} color={tint} />
+      </View>
+      <Text style={styles.quickTitle} numberOfLines={2}>{label}</Text>
     </Pressable>
   );
 }
 
+function Stat({ label, value, total, color, bg }) {
+  return (
+    <View style={[styles.stat, { backgroundColor: bg }]}>
+      <Text style={type.label}>{label}</Text>
+      <Text style={[styles.statValue, { color }]}>
+        {value}
+        <Text style={styles.statTotal}> / {total}</Text>
+      </Text>
+    </View>
+  );
+}
+
 export default function HomeScreen({ navigation }) {
-  const tabBarHeight = useBottomTabBarHeight();
   const {
     language,
     primaryIllness,
@@ -43,147 +59,114 @@ export default function HomeScreen({ navigation }) {
 
   const meds = selectedMedications.length ? selectedMedications : (medicationCatalog.length ? medicationCatalog : getCombinedMedications(language));
   const illnessLabel = illnessData[primaryIllness]?.labels?.[language] || primaryIllness;
-  const nextReminderLabel = nextReminder
-    ? `${t(language, nextReminder.label) !== nextReminder.label ? t(language, nextReminder.label) : (nextReminder.label || nextReminder.medName)} - ${String(nextReminder.hour).padStart(2, '0')}:${String(nextReminder.minute).padStart(2, '0')}`
-    : t(language, 'none');
+  const nextReminderName = nextReminder
+    ? (t(language, nextReminder.label) !== nextReminder.label ? t(language, nextReminder.label) : (nextReminder.label || nextReminder.medName))
+    : null;
+  const nextReminderTime = nextReminder
+    ? `${String(nextReminder.hour).padStart(2, '0')}:${String(nextReminder.minute).padStart(2, '0')}`
+    : null;
   const mealsDone = ['breakfast', 'lunch', 'dinner'].filter((k) => !!mealChecklist[k]).length;
 
   return (
-    <LinearGradient colors={gradients.home} style={styles.wrap}>
-      <SafeAreaView edges={['top']} style={styles.safe}>
-        <ScrollView contentContainerStyle={[styles.container, { paddingBottom: tabBarHeight + scale(28) }]}>
-          <Text style={[styles.heading, { fontSize: scaledFont(30, textScale) }]}>
-            {t(language, 'welcome')}
-            {user?.name ? `, ${user.name}` : ''}
-          </Text>
-          <Text style={[styles.subHeading, { fontSize: scaledFont(13, textScale) }]}>{t(language, 'homeSubtitle')}</Text>
-
-          <LinearGradient colors={[palette.brandStart, palette.brandEnd]} style={styles.banner}>
-            <Text style={styles.bannerLabel}>{t(language, 'nextReminder')}</Text>
-            <Text style={styles.bannerValue}>{nextReminderLabel}</Text>
-            <Text style={styles.bannerSub}>{t(language, 'selectedIllness')}: {illnessLabel}</Text>
-          </LinearGradient>
-
-          <View style={styles.metricsRow}>
-            <View style={[styles.metricCard, { backgroundColor: '#153242' }]}>
-              <Text style={styles.metricLabel}>{t(language, 'medicationCounter')}</Text>
-              <Text style={styles.metricValue}>{medicationTaken}/{medicationTotal || meds.length || 0}</Text>
-            </View>
-            <View style={[styles.metricCard, { backgroundColor: '#1A3F33' }]}>
-              <Text style={styles.metricLabel}>{t(language, 'mealsTracker')}</Text>
-              <Text style={styles.metricSmall}>{mealsDone}/3</Text>
-            </View>
+    <Screen
+      safeTop
+      textScale={textScale}
+      title={`${t(language, 'welcome')}${user?.name ? `, ${user.name}` : ''}`}
+      subtitle={t(language, 'homeSubtitle')}
+    >
+      <Card tone="blue" onPress={() => navigation.navigate('MedicalAlerts')} accessibilityLabel={t(language, 'nextReminder')}>
+        <View style={styles.reminderRow}>
+          <View style={styles.reminderIcon}>
+            <Ionicons name="alarm-outline" size={scale(24)} color={colors.onAccent} />
           </View>
-
-          <Text style={styles.sectionHeading}>Quick Actions</Text>
-          <View style={styles.quickRow}>
-            <Pressable style={[styles.quickCard, { backgroundColor: '#1A4255' }]} onPress={() => navigation.navigate('DietPlans')}>
-              <Text style={styles.quickTitle}>{t(language, 'dietPlans')}</Text>
-            </Pressable>
-            <Pressable style={[styles.quickCard, { backgroundColor: '#205A44' }]} onPress={() => navigation.navigate('MedicalAlerts')}>
-              <Text style={styles.quickTitle}>{t(language, 'medicalAlerts')}</Text>
-            </Pressable>
-            <Pressable style={[styles.quickCard, { backgroundColor: '#223D66' }]} onPress={() => navigation.navigate('DiseaseInfo')}>
-              <Text style={styles.quickTitle}>{t(language, 'diseaseInfo')}</Text>
-            </Pressable>
+          <View style={{ flex: 1 }}>
+            <Text style={[type.label, { color: colors.blueText }]}>{t(language, 'nextReminder')}</Text>
+            <Text style={styles.reminderValue}>
+              {nextReminderName ? `${nextReminderName} · ${nextReminderTime}` : t(language, 'none')}
+            </Text>
+            <Text style={type.muted}>{t(language, 'selectedIllness')}: {illnessLabel}</Text>
           </View>
+        </View>
+      </Card>
 
-          <View style={styles.summaryBox}>
-            <Text style={styles.summaryTitle}>{t(language, 'scheduleSummary')}</Text>
-            {meds.map((med) => (
-              <ChecklistRow
-                key={med}
-                checked={!!medicationChecklist[med]}
-                label={med}
-                onPress={() => toggleMedicationTaken(med)}
-              />
-            ))}
+      <View style={styles.statsRow}>
+        <Stat
+          label={t(language, 'medicationCounter')}
+          value={medicationTaken}
+          total={medicationTotal || meds.length || 0}
+          color={colors.blueText}
+          bg={colors.surface}
+        />
+        <Stat label={t(language, 'mealsTracker')} value={mealsDone} total={3} color={colors.greenText} bg={colors.surface} />
+      </View>
 
-            <Text style={styles.subTracker}>{t(language, 'mealsTracker')}</Text>
-            <ChecklistRow checked={!!mealChecklist.breakfast} label={t(language, 'breakfast')} onPress={() => toggleMealTaken('breakfast')} />
-            <ChecklistRow checked={!!mealChecklist.lunch} label={t(language, 'lunch')} onPress={() => toggleMealTaken('lunch')} />
-            <ChecklistRow checked={!!mealChecklist.dinner} label={t(language, 'dinner')} onPress={() => toggleMealTaken('dinner')} />
-          </View>
+      <SectionTitle>{t(language, 'quickActions')}</SectionTitle>
+      <View style={styles.quickRow}>
+        <QuickAction icon="nutrition-outline" label={t(language, 'dietPlans')} tint={colors.greenText} bg={colors.greenSoft} onPress={() => navigation.navigate('DietPlans')} />
+        <QuickAction icon="notifications-outline" label={t(language, 'medicalAlerts')} tint={colors.blueText} bg={colors.blueSoft} onPress={() => navigation.navigate('MedicalAlerts')} />
+        <QuickAction icon="book-outline" label={t(language, 'diseaseInfo')} tint={colors.greenText} bg={colors.greenSoft} onPress={() => navigation.navigate('DiseaseInfo')} />
+      </View>
 
-          <View style={styles.logsBox}>
-            <Text style={styles.logsTitle}>{t(language, 'logsAndTracking')}</Text>
-            <Pressable style={styles.logButton} onPress={() => navigation.navigate('AllLogs')}>
-              <Text style={styles.logText}>{t(language, 'viewAllLogs')}</Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </LinearGradient>
+      <SectionTitle>{t(language, 'scheduleSummary')}</SectionTitle>
+      <Card tone="plain" style={styles.listCard}>
+        {meds.map((med) => (
+          <CheckRow key={med} label={med} checked={!!medicationChecklist[med]} onPress={() => toggleMedicationTaken(med)} />
+        ))}
+      </Card>
+
+      <SectionTitle>{t(language, 'mealsTracker')}</SectionTitle>
+      <Card tone="plain" style={styles.listCard}>
+        {['breakfast', 'lunch', 'dinner'].map((meal) => (
+          <CheckRow key={meal} label={t(language, meal)} checked={!!mealChecklist[meal]} onPress={() => toggleMealTaken(meal)} />
+        ))}
+      </Card>
+
+      <Card onPress={() => navigation.navigate('AllLogs')} accessibilityLabel={t(language, 'viewAllLogs')} style={styles.logsCard}>
+        <Ionicons name="stats-chart-outline" size={scale(22)} color={colors.blueText} />
+        <View style={{ flex: 1 }}>
+          <Text style={type.bodyStrong}>{t(language, 'logsAndTracking')}</Text>
+          <Text style={type.muted}>{t(language, 'viewAllLogs')}</Text>
+        </View>
+        <Ionicons name="chevron-forward" size={scale(20)} color={colors.textMuted} />
+      </Card>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  wrap: { flex: 1 },
-  safe: { flex: 1 },
-  container: { padding: scale(16), gap: scale(10) },
-  heading: { fontWeight: '800', color: palette.textPrimary },
-  subHeading: { color: '#AEC9D3', marginBottom: scale(8) },
-  banner: {
-    borderRadius: scale(18),
-    padding: scale(16),
-    marginBottom: scale(6)
-  },
-  bannerLabel: { color: '#EAF8FF', fontSize: scale(12), fontWeight: '700' },
-  bannerValue: { marginTop: scale(6), fontWeight: '800', color: '#FFFFFF', fontSize: scale(18) },
-  bannerSub: { marginTop: scale(4), color: '#EAF8FF', fontSize: scale(12) },
-  metricsRow: { flexDirection: 'row', gap: scale(10) },
-  metricCard: {
-    flex: 1,
-    minHeight: scale(100),
-    borderRadius: scale(16),
-    padding: scale(12),
+  reminderRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
+  reminderIcon: {
+    width: scale(48),
+    height: scale(48),
+    borderRadius: radius.md,
+    backgroundColor: colors.blue,
+    alignItems: 'center',
     justifyContent: 'center'
   },
-  metricLabel: { color: '#DDEFF5', fontWeight: '700' },
-  metricValue: { color: '#0E9FBE', fontSize: scale(30), fontWeight: '800', marginTop: scale(6) },
-  metricSmall: { color: '#ECFAF1', fontSize: scale(22), fontWeight: '700', marginTop: scale(6) },
-  sectionHeading: { color: '#F4FBFF', fontSize: scale(18), fontWeight: '800', marginTop: scale(6) },
-  quickRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: scale(8)
-  },
+  reminderValue: { fontFamily: fonts.semibold, fontSize: scale(19), lineHeight: scale(25), color: colors.text, marginVertical: 2 },
+  statsRow: { flexDirection: 'row', gap: spacing.md },
+  stat: { flex: 1, borderRadius: radius.lg, padding: spacing.lg, gap: spacing.xs },
+  statValue: { fontFamily: fonts.bold, fontSize: scale(30), lineHeight: scale(36) },
+  statTotal: { fontFamily: fonts.medium, fontSize: scale(18), color: colors.textMuted },
+  quickRow: { flexDirection: 'row', gap: spacing.sm },
   quickCard: {
     flex: 1,
-    minHeight: scale(110),
-    borderRadius: scale(14),
-    padding: scale(10),
+    minHeight: scale(104),
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.background,
+    padding: spacing.md,
+    gap: spacing.sm
+  },
+  quickIcon: {
+    width: scale(40),
+    height: scale(40),
+    borderRadius: radius.sm,
+    alignItems: 'center',
     justifyContent: 'center'
   },
-  quickTitle: { color: '#EAF8FF', fontSize: scale(14), fontWeight: '700' },
-  summaryBox: {
-    marginTop: scale(6),
-    backgroundColor: '#102632',
-    borderRadius: scale(16),
-    padding: scale(14)
-  },
-  summaryTitle: { fontSize: scale(16), fontWeight: '800', color: '#EAF8FF', marginBottom: scale(8) },
-  checkRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: scale(10),
-    paddingVertical: scale(6)
-  },
-  checkLabel: { color: '#C9EAF3', fontSize: scale(14), flex: 1 },
-  subTracker: { marginTop: scale(8), color: '#EAF8FF', fontWeight: '800', fontSize: scale(14) },
-  logsBox: {
-    marginTop: scale(8),
-    backgroundColor: '#102632',
-    borderRadius: scale(16),
-    padding: scale(14)
-  },
-  logsTitle: { fontSize: scale(16), fontWeight: '800', color: '#EAF8FF', marginBottom: scale(8) },
-  logButton: {
-    backgroundColor: '#1A4255',
-    borderWidth: 1,
-    borderColor: '#2B4C5F',
-    borderRadius: scale(12),
-    padding: scale(12)
-  },
-  logText: { color: '#DDEFF5', fontWeight: '600' }
+  quickTitle: { fontFamily: fonts.semibold, fontSize: scale(14), lineHeight: scale(18), color: colors.text },
+  listCard: { paddingVertical: spacing.sm },
+  logsCard: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, marginTop: spacing.sm }
 });

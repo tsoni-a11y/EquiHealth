@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../context/AppContext';
 import { illnessData, illnessOptions } from '../data/illnessData';
 import { t } from '../i18n/translations';
-import { gradients, palette, scale, scaledFont } from '../theme';
+import { colors, fonts, scale, scaledFont, spacing, type } from '../theme';
+import { Button, Card, Chip, Screen, SectionTitle } from '../components/ui';
 
 export default function LanguageScreen({ navigation }) {
   const { language, saveLanguage, saveIllnesses, selectedIllnesses, isReady, user, profileComplete, textScale } = useApp();
@@ -45,149 +45,55 @@ export default function LanguageScreen({ navigation }) {
   };
 
   return (
-    <LinearGradient colors={gradients.splash} style={styles.wrap}>
-      <SafeAreaView edges={['top', 'bottom']} style={styles.safe}>
-        <ScrollView contentContainerStyle={styles.container}>
-          <Text style={[styles.title, { fontSize: scaledFont(42, textScale) }]}>{t(choice, 'appName')}+</Text>
-          <Text style={[styles.subtitle, { fontSize: scaledFont(16, textScale) }]}>{t(choice, 'chooseLanguage')}</Text>
+    <Screen safeTop contentStyle={styles.content}>
+      <View style={styles.brand}>
+        <View style={styles.logo}>
+          <Ionicons name="heart" size={scale(30)} color={colors.onAccent} />
+        </View>
+        <Text style={[styles.appName, { fontSize: scaledFont(34, textScale) }]}>{t(choice, 'appName')}</Text>
+        <Text style={[type.muted, styles.center]}>{t(choice, 'chooseLanguage')}</Text>
+      </View>
 
-          <View style={styles.panel}>
-            <View style={styles.row}>
-              <Pressable
-                style={[styles.langButton, choice === 'en' && styles.langSelected]}
-                onPress={() => setChoice('en')}
-              >
-                <Text style={styles.langText}>{t('en', 'english')}</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.langButton, choice === 'hi' && styles.langSelected]}
-                onPress={() => setChoice('hi')}
-              >
-                <Text style={styles.langText}>{t('hi', 'hindi')}</Text>
-              </Pressable>
-            </View>
+      <Card tone="plain">
+        <View style={styles.row}>
+          <Chip label={t('en', 'english')} selected={choice === 'en'} onPress={() => setChoice('en')} />
+          <Chip label={t('hi', 'hindi')} selected={choice === 'hi'} onPress={() => setChoice('hi')} />
+        </View>
 
-            <Text style={styles.diseaseTitle}>{t(choice, 'chooseDisease')}</Text>
-            <View style={styles.chipsWrap}>
-              {illnessOptions.map((key) => {
-                const selected = illnessChoice.includes(key);
-                return (
-                  <Pressable
-                    key={key}
-                    style={[styles.diseaseChip, selected && styles.diseaseChipSelected]}
-                    onPress={() => toggleChoice(key)}
-                  >
-                    <Text style={styles.diseaseText}>{illnessData[key].labels[choice]}</Text>
-                  </Pressable>
-                );
-              })}
-            </View>
-          </View>
+        <SectionTitle style={styles.diseaseTitle}>{t(choice, 'chooseDisease')}</SectionTitle>
+        <View style={styles.row}>
+          {illnessOptions.map((key) => (
+            <Chip
+              key={key}
+              tone="green"
+              label={illnessData[key].labels[choice]}
+              selected={illnessChoice.includes(key)}
+              onPress={() => toggleChoice(key)}
+            />
+          ))}
+        </View>
+      </Card>
 
-          <Pressable style={styles.cta} onPress={proceed}>
-            <LinearGradient colors={[palette.brandStart, palette.brandEnd]} style={styles.ctaInner}>
-              <Text style={styles.ctaText}>{t(choice, 'continue')}</Text>
-            </LinearGradient>
-          </Pressable>
-        </ScrollView>
-      </SafeAreaView>
-    </LinearGradient>
+      <Button label={t(choice, 'continue')} icon="arrow-forward" onPress={proceed} style={styles.cta} />
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  wrap: {
-    flex: 1
-  },
-  safe: {
-    flex: 1
-  },
-  container: {
+  content: { flexGrow: 1, justifyContent: 'center', padding: spacing.xl },
+  brand: { alignItems: 'center', gap: spacing.sm, marginBottom: spacing.lg },
+  logo: {
+    width: scale(64),
+    height: scale(64),
+    borderRadius: scale(20),
+    backgroundColor: colors.blue,
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: '100%',
-    padding: scale(24)
+    marginBottom: spacing.xs
   },
-  title: {
-    fontWeight: '800',
-    color: palette.textPrimary
-  },
-  subtitle: {
-    marginTop: scale(14),
-    color: '#C9EAF3'
-  },
-  panel: {
-    width: '100%',
-    marginTop: scale(24),
-    padding: scale(18),
-    borderRadius: scale(18),
-    backgroundColor: 'rgba(16,42,58,0.65)',
-    borderWidth: 1,
-    borderColor: 'rgba(168,203,214,0.2)'
-  },
-  row: {
-    flexDirection: 'row',
-    gap: scale(12)
-  },
-  diseaseTitle: {
-    marginTop: scale(22),
-    marginBottom: scale(10),
-    fontSize: scale(17),
-    fontWeight: '700',
-    color: '#DDEFF5'
-  },
-  chipsWrap: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-    gap: scale(10)
-  },
-  diseaseChip: {
-    backgroundColor: '#21314F',
-    borderRadius: scale(18),
-    borderColor: '#3A5C79',
-    borderWidth: 1,
-    paddingVertical: scale(9),
-    paddingHorizontal: scale(14)
-  },
-  diseaseChipSelected: {
-    backgroundColor: '#1C3A50',
-    borderColor: palette.brandStart
-  },
-  diseaseText: {
-    color: '#F0F4FF',
-    fontWeight: '700'
-  },
-  langButton: {
-    backgroundColor: '#21314F',
-    borderWidth: 1,
-    borderColor: '#3A5C79',
-    borderRadius: scale(14),
-    paddingVertical: scale(12),
-    paddingHorizontal: scale(20)
-  },
-  langSelected: {
-    borderColor: palette.brandStart,
-    backgroundColor: '#1C3A50'
-  },
-  langText: {
-    fontSize: scale(15),
-    fontWeight: '700',
-    color: '#EAF8FF'
-  },
-  cta: {
-    marginTop: scale(28),
-    width: '100%',
-    borderRadius: scale(30),
-    overflow: 'hidden'
-  },
-  ctaInner: {
-    paddingVertical: scale(14),
-    alignItems: 'center'
-  },
-  ctaText: {
-    color: '#fff',
-    fontSize: scale(18),
-    fontWeight: '700'
-  }
+  appName: { fontFamily: fonts.bold, color: colors.text },
+  center: { textAlign: 'center' },
+  row: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
+  diseaseTitle: { marginTop: spacing.lg, marginBottom: spacing.md },
+  cta: { marginTop: spacing.md }
 });

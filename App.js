@@ -4,7 +4,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
+// Import only the weights the app uses, so unused font files aren't bundled.
+import { AtkinsonHyperlegibleNext_400Regular } from '@expo-google-fonts/atkinson-hyperlegible-next/400Regular';
+import { AtkinsonHyperlegibleNext_500Medium } from '@expo-google-fonts/atkinson-hyperlegible-next/500Medium';
+import { AtkinsonHyperlegibleNext_600SemiBold } from '@expo-google-fonts/atkinson-hyperlegible-next/600SemiBold';
+import { AtkinsonHyperlegibleNext_700Bold } from '@expo-google-fonts/atkinson-hyperlegible-next/700Bold';
 import { AppProvider } from './src/context/AppContext';
 import LanguageScreen from './src/screens/LanguageScreen';
 import AuthScreen from './src/screens/AuthScreen';
@@ -18,39 +24,32 @@ import AllLogsScreen from './src/screens/AllLogsScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import { t } from './src/i18n/translations';
 import { useApp } from './src/context/AppContext';
-import { scale } from './src/theme';
+import { colors, fonts, scale } from './src/theme';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainTabs() {
   const { language } = useApp();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#0e9fbe',
-        tabBarInactiveTintColor: '#7a8f96',
+        tabBarActiveTintColor: colors.blue,
+        tabBarInactiveTintColor: colors.textMuted,
         tabBarStyle: {
-          position: 'absolute',
-          left: scale(8),
-          right: scale(8),
-          bottom: scale(8),
-          height: scale(70),
-          paddingBottom: scale(10),
-          paddingTop: scale(6),
-          borderTopColor: '#d6e8ec',
+          backgroundColor: colors.background,
+          borderTopColor: colors.border,
           borderTopWidth: 1,
-          backgroundColor: '#132A36',
-          borderRadius: scale(18)
-        },
-        tabBarItemStyle: {
-          paddingHorizontal: scale(2)
+          height: scale(64) + insets.bottom,
+          paddingTop: scale(6),
+          paddingBottom: Math.max(insets.bottom, scale(8))
         },
         tabBarLabelStyle: {
-          fontSize: scale(10),
-          fontWeight: '700'
+          fontFamily: fonts.medium,
+          fontSize: scale(12)
         }
       }}
     >
@@ -99,17 +98,28 @@ function MainTabs() {
 }
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    AtkinsonHyperlegibleNext_400Regular,
+    AtkinsonHyperlegibleNext_500Medium,
+    AtkinsonHyperlegibleNext_600SemiBold,
+    AtkinsonHyperlegibleNext_700Bold
+  });
+
+  if (!fontsLoaded) return null;
+
   return (
     <SafeAreaProvider>
       <AppProvider>
         <NavigationContainer>
-          <StatusBar style="light" />
+          <StatusBar style="dark" />
           <Stack.Navigator
             initialRouteName="Language"
             screenOptions={{
-              headerStyle: { backgroundColor: '#0e9fbe' },
-              headerTintColor: '#fff',
-              headerTitleStyle: { fontWeight: '700' }
+              headerStyle: { backgroundColor: colors.background },
+              headerTintColor: colors.blueText,
+              headerTitleStyle: { fontFamily: fonts.semibold, fontSize: scale(18), color: colors.text },
+              headerBackButtonDisplayMode: 'minimal',
+              contentStyle: { backgroundColor: colors.background }
             }}
           >
             <Stack.Screen name="Language" component={LanguageScreen} options={{ headerShown: false }} />

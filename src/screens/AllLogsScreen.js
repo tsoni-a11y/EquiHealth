@@ -1,12 +1,10 @@
 import React, { useLayoutEffect, useMemo, useState } from 'react';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import Slider from '@react-native-community/slider';
-import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useApp } from '../context/AppContext';
 import { t } from '../i18n/translations';
-import { scale, scaledFont } from '../theme';
+import { colors, fonts, scale, spacing, type } from '../theme';
+import { Button, Card, Chip, Input, Screen } from '../components/ui';
 
 const tabs = ['bloodPressure', 'bloodGlucose', 'cholesterol', 'medication', 'meals'];
 
@@ -97,200 +95,119 @@ export default function AllLogsScreen({ navigation }) {
 
   const last = activeLogs[0];
 
+  const sliderColors = {
+    minimumTrackTintColor: colors.blue,
+    maximumTrackTintColor: colors.borderStrong,
+    thumbTintColor: colors.blue
+  };
+
   return (
-    <LinearGradient colors={['#111822', '#1B2D3D']} style={styles.wrap}>
-      <SafeAreaView edges={['top']} style={styles.safe}>
-        <ScrollView contentContainerStyle={styles.container}>
-          <Text style={[styles.title, { fontSize: scaledFont(28, textScale) }]}>{t(language, 'allLogsTitle')}</Text>
+    <Screen title={t(language, 'allLogsTitle')} textScale={textScale}>
+      <View style={styles.tabsRow}>
+        {tabs.map((tab) => (
+          <Chip
+            key={tab}
+            label={tabLabel[tab]}
+            selected={activeTab === tab}
+            onPress={() => {
+              setActiveTab(tab);
+              setExpanded(false);
+              resetForm();
+            }}
+          />
+        ))}
+      </View>
 
-          <View style={styles.tabsRow}>
-            {tabs.map((tab) => (
-              <Pressable
-                key={tab}
-                style={[styles.tabChip, activeTab === tab && styles.tabChipActive]}
-                onPress={() => {
-                  setActiveTab(tab);
-                  setExpanded(false);
-                  resetForm();
-                }}
-              >
-                <Text style={styles.tabText}>{tabLabel[tab]}</Text>
-              </Pressable>
-            ))}
-          </View>
+      <Card tone="blue">
+        <Text style={[type.label, { color: colors.blueText }]}>{t(language, 'lastRecorded')} · {tabLabel[activeTab]}</Text>
+        <Text style={styles.mainValue}>{last?.value || t(language, 'none')}</Text>
+        <Text style={type.muted}>{last?.note || t(language, 'noHistory')}</Text>
+      </Card>
 
-          {activeTab !== 'meals' ? <View style={styles.addBlock}>
-            <Text style={styles.addTitle}>{t(language, 'addLog')}</Text>
+      {activeTab !== 'meals' ? (
+        <Card tone="plain">
+          <Text style={[type.heading, styles.addTitle]}>{t(language, 'addLog')}</Text>
 
-            {activeTab === 'bloodPressure' ? (
-              <View>
-                <Text style={styles.sliderLabel}>{t(language, 'systolic')}: {Math.round(sysValue)}</Text>
-                <Slider minimumValue={90} maximumValue={200} step={1} value={sysValue} onValueChange={setSysValue} minimumTrackTintColor="#0E9FBE" maximumTrackTintColor="#4A6470" thumbTintColor="#6CCB4F" />
-                <Text style={styles.sliderLabel}>{t(language, 'diastolic')}: {Math.round(diaValue)}</Text>
-                <Slider minimumValue={50} maximumValue={130} step={1} value={diaValue} onValueChange={setDiaValue} minimumTrackTintColor="#0E9FBE" maximumTrackTintColor="#4A6470" thumbTintColor="#6CCB4F" />
-              </View>
-            ) : activeTab === 'bloodGlucose' ? (
-              <View>
-                <Text style={styles.sliderLabel}>{t(language, 'glucose')}: {Math.round(sugarValue)} mg/dL</Text>
-                <Slider minimumValue={70} maximumValue={260} step={1} value={sugarValue} onValueChange={setSugarValue} minimumTrackTintColor="#0E9FBE" maximumTrackTintColor="#4A6470" thumbTintColor="#6CCB4F" />
-              </View>
-            ) : activeTab === 'cholesterol' ? (
-              <View>
-                <Text style={styles.sliderLabel}>{t(language, 'cholesterolLdl')}: {Math.round(cholValue)}</Text>
-                <Slider minimumValue={70} maximumValue={240} step={1} value={cholValue} onValueChange={setCholValue} minimumTrackTintColor="#0E9FBE" maximumTrackTintColor="#4A6470" thumbTintColor="#6CCB4F" />
-              </View>
-            ) : (
-              <View style={styles.pillsRow}>
-                {medOptions.map((med) => (
-                  <Pressable key={med} style={[styles.pill, selectedLogMed === med && styles.pillActive]} onPress={() => setSelectedLogMed(med)}>
-                    <Text style={styles.pillText}>{med}</Text>
-                  </Pressable>
-                ))}
-              </View>
-            )}
-
-            {activeTab === 'medication' && !medOptions.length ? (
-              <Text style={styles.noHistory}>{t(language, 'noMeds')}</Text>
-            ) : null}
-
-            {activeTab !== 'medication' ? (
-              <TextInput
-                value={logNote}
-                onChangeText={setLogNote}
-                placeholder={t(language, 'notesOptional')}
-                placeholderTextColor="#9DB3C7"
-                style={styles.input}
-              />
-            ) : null}
-
-            {activeTab === 'medication' ? (
-              <View style={styles.pillsRow}>
-                <Pressable style={[styles.pill, medTaken && styles.pillActive]} onPress={() => setMedTaken(true)}>
-                  <Text style={styles.pillText}>{t(language, 'taken')}</Text>
-                </Pressable>
-                <Pressable style={[styles.pill, !medTaken && styles.pillActive]} onPress={() => setMedTaken(false)}>
-                  <Text style={styles.pillText}>{t(language, 'missed')}</Text>
-                </Pressable>
-              </View>
-            ) : null}
-
-            <Pressable style={styles.addBtn} onPress={handleAddLog}>
-              <Text style={styles.addBtnText}>{t(language, 'saveLog')}</Text>
-            </Pressable>
-          </View> : null}
-
-          <Pressable style={styles.mainCard} onPress={() => setExpanded((prev) => !prev)}>
-            <Text style={styles.mainTitle}>{tabLabel[activeTab]}</Text>
-            <Text style={styles.lastLabel}>{t(language, 'lastRecorded')}</Text>
-            <Text style={styles.mainValue}>{last?.value || t(language, 'none')}</Text>
-            <Text style={styles.mainNote}>{last?.note || t(language, 'noHistory')}</Text>
-            <View style={styles.expandRow}>
-              <Text style={styles.expandLabel}>{expanded ? t(language, 'hideHistory') : t(language, 'showHistory')}</Text>
-              <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={scale(18)} color="#BFD0E0" />
+          {activeTab === 'bloodPressure' ? (
+            <View>
+              <Text style={styles.sliderLabel}>{t(language, 'systolic')}: <Text style={styles.sliderValue}>{Math.round(sysValue)}</Text></Text>
+              <Slider minimumValue={90} maximumValue={200} step={1} value={sysValue} onValueChange={setSysValue} {...sliderColors} />
+              <Text style={styles.sliderLabel}>{t(language, 'diastolic')}: <Text style={styles.sliderValue}>{Math.round(diaValue)}</Text></Text>
+              <Slider minimumValue={50} maximumValue={130} step={1} value={diaValue} onValueChange={setDiaValue} {...sliderColors} />
             </View>
-          </Pressable>
-
-          {expanded && (
-            <View style={styles.historyBlock}>
-              {activeLogs.slice(1).length ? (
-                activeLogs.slice(1).map((log) => (
-                  <View key={log.id} style={styles.historyCard}>
-                    <Text style={styles.historyValue}>{log.value}</Text>
-                    <Text style={styles.historyTime}>{new Date(log.createdAt).toLocaleString()}</Text>
-                  </View>
-                ))
-              ) : (
-                <Text style={styles.noHistory}>{t(language, 'noHistory')}</Text>
-              )}
+          ) : activeTab === 'bloodGlucose' ? (
+            <View>
+              <Text style={styles.sliderLabel}>{t(language, 'glucose')}: <Text style={styles.sliderValue}>{Math.round(sugarValue)} mg/dL</Text></Text>
+              <Slider minimumValue={70} maximumValue={260} step={1} value={sugarValue} onValueChange={setSugarValue} {...sliderColors} />
+            </View>
+          ) : activeTab === 'cholesterol' ? (
+            <View>
+              <Text style={styles.sliderLabel}>{t(language, 'cholesterolLdl')}: <Text style={styles.sliderValue}>{Math.round(cholValue)}</Text></Text>
+              <Slider minimumValue={70} maximumValue={240} step={1} value={cholValue} onValueChange={setCholValue} {...sliderColors} />
+            </View>
+          ) : (
+            <View style={styles.pillsRow}>
+              {medOptions.map((med) => (
+                <Chip key={med} label={med} selected={selectedLogMed === med} onPress={() => setSelectedLogMed(med)} />
+              ))}
             </View>
           )}
-        </ScrollView>
-      </SafeAreaView>
-    </LinearGradient>
+
+          {activeTab === 'medication' && !medOptions.length ? (
+            <Text style={type.muted}>{t(language, 'noMeds')}</Text>
+          ) : null}
+
+          {activeTab !== 'medication' ? (
+            <Input value={logNote} onChangeText={setLogNote} placeholder={t(language, 'notesOptional')} style={styles.noteInput} />
+          ) : null}
+
+          {activeTab === 'medication' ? (
+            <View style={styles.pillsRow}>
+              <Chip tone="green" label={t(language, 'taken')} selected={medTaken} onPress={() => setMedTaken(true)} />
+              <Chip label={t(language, 'missed')} selected={!medTaken} onPress={() => setMedTaken(false)} />
+            </View>
+          ) : null}
+
+          <Button label={t(language, 'saveLog')} variant="green" icon="checkmark" onPress={handleAddLog} style={styles.saveButton} />
+        </Card>
+      ) : null}
+
+      <Button
+        variant="secondary"
+        icon={expanded ? 'chevron-up' : 'chevron-down'}
+        label={expanded ? t(language, 'hideHistory') : t(language, 'showHistory')}
+        onPress={() => setExpanded((prev) => !prev)}
+      />
+
+      {expanded ? (
+        activeLogs.slice(1).length ? (
+          <Card tone="plain" style={styles.historyCard}>
+            {activeLogs.slice(1).map((log, idx) => (
+              <View key={log.id} style={[styles.historyRow, idx > 0 && styles.rowDivider]}>
+                <Text style={type.bodyStrong}>{log.value}</Text>
+                <Text style={type.muted}>{new Date(log.createdAt).toLocaleString()}</Text>
+              </View>
+            ))}
+          </Card>
+        ) : (
+          <Text style={[type.muted, styles.center]}>{t(language, 'noHistory')}</Text>
+        )
+      ) : null}
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  wrap: { flex: 1 },
-  safe: { flex: 1 },
-  container: { padding: scale(16), paddingBottom: scale(24) },
-  title: { color: '#EEF6FF', fontWeight: '800', marginBottom: scale(10) },
-  tabsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: scale(8), marginBottom: scale(10) },
-  tabChip: {
-    backgroundColor: '#1C3346',
-    borderRadius: scale(18),
-    paddingVertical: scale(7),
-    paddingHorizontal: scale(10)
-  },
-  tabChipActive: { backgroundColor: '#0E9FBE' },
-  tabText: { color: '#E2EEFA', fontSize: scale(12), fontWeight: '700' },
-  mainCard: {
-    backgroundColor: '#1C3346',
-    borderRadius: scale(16),
-    padding: scale(14),
-    marginBottom: scale(10)
-  },
-  mainTitle: { color: '#E2EEFA', fontSize: scale(18), fontWeight: '800' },
-  lastLabel: { color: '#A6BED2', marginTop: scale(6), fontSize: scale(12) },
-  mainValue: { color: '#0E9FBE', fontSize: scale(28), fontWeight: '800', marginTop: scale(2) },
-  mainNote: { color: '#A6BED2', marginTop: scale(4) },
-  expandRow: { marginTop: scale(8), flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  expandLabel: { color: '#BFD0E0', fontWeight: '700' },
-  historyBlock: { marginTop: scale(2) },
-  historyCard: {
-    backgroundColor: '#243A4D',
-    borderRadius: scale(12),
-    padding: scale(12),
-    marginBottom: scale(8)
-  },
-  historyValue: { color: '#EAF6FF', fontWeight: '700' },
-  historyTime: { color: '#BFD0E0', marginTop: scale(4), fontSize: scale(12) },
-  noHistory: { color: '#BFD0E0', textAlign: 'center', marginTop: scale(8) },
-  addBlock: {
-    backgroundColor: '#1C3346',
-    borderRadius: scale(14),
-    padding: scale(12),
-    marginBottom: scale(10)
-  },
-  addTitle: { color: '#E2EEFA', fontWeight: '800', marginBottom: scale(8) },
-  sliderLabel: { color: '#BFD0E0', fontWeight: '700', marginBottom: scale(4), marginTop: scale(2) },
-  input: {
-    backgroundColor: '#223C52',
-    borderWidth: 1,
-    borderColor: '#2F5572',
-    borderRadius: scale(10),
-    color: '#EAF6FF',
-    paddingHorizontal: scale(10),
-    paddingVertical: scale(10),
-    marginBottom: scale(8)
-  },
-  pillsRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: scale(8),
-    marginBottom: scale(8)
-  },
-  pill: {
-    borderRadius: scale(16),
-    borderWidth: 1,
-    borderColor: '#2F5572',
-    backgroundColor: '#223C52',
-    paddingHorizontal: scale(12),
-    paddingVertical: scale(8)
-  },
-  pillActive: {
-    backgroundColor: '#0E9FBE',
-    borderColor: '#0E9FBE'
-  },
-  pillText: {
-    color: '#E2EEFA',
-    fontWeight: '700'
-  },
-  addBtn: {
-    backgroundColor: '#0E9FBE',
-    borderRadius: scale(10),
-    paddingVertical: scale(11),
-    alignItems: 'center'
-  },
-  addBtnText: { color: '#062331', fontWeight: '800' }
+  tabsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
+  mainValue: { fontFamily: fonts.bold, fontSize: scale(28), lineHeight: scale(34), color: colors.text, marginVertical: spacing.xs },
+  addTitle: { marginBottom: spacing.sm },
+  sliderLabel: { ...type.label, marginTop: spacing.sm },
+  sliderValue: { fontFamily: fonts.semibold, color: colors.text },
+  pillsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.sm },
+  noteInput: { marginTop: spacing.md },
+  saveButton: { marginTop: spacing.md },
+  historyCard: { paddingVertical: spacing.xs },
+  historyRow: { paddingVertical: spacing.md, gap: 2 },
+  rowDivider: { borderTopWidth: 1, borderTopColor: colors.border },
+  center: { textAlign: 'center' }
 });
